@@ -1,0 +1,222 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Programming/Coding Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+% This template uses a Perl script as an example snippet of code, most other
+% languages are also usable. Configure them in the "CODE INCLUSION 
+% CONFIGURATION" section.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+
+\usepackage{fix-cm} %for huge text
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{float}% For clipping images 
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{amsmath}% For nice mathematical formulas
+\usepackage{amssymb} %for N, Z, R ...
+\usepackage{subcaption}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\autorName} % Top left header
+\chead{\topCentralHead} % Top center head
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+%\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\rfoot{\thepage} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+\newcommand{\comp}[1]{\textbf{\texttt {#1}}}% For writing computer terms
+\newcommand{\important}{\textcolor{Red}{\textbf{Important: }}}
+\newcommand{\hint}{\textcolor{MyBlue}{\textbf{Tip: }}}
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+%\renewcommand{\ttdefault}{pcr}
+\definecolor{MyBlue}{rgb}{0.0,0.4,0.8} 
+\definecolor{MyRed}{rgb}{1.0,0.3,0.3} 
+\definecolor{MyYellow}{rgb}{1.0,0.7,0.07} % 
+\definecolor{MyGray}{rgb}{0.9,0.9,0.9} % 
+\definecolor{MyDarkGray}{rgb}{0.25,0.27, 0.32} % 
+\definecolor{MyGreen}{rgb}{0.5,0.92, 0.95} % 
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\lstloadlanguages{C++} % Load Perl syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+
+\lstset{language=C++, % Use Perl in this example
+        frame=single, % Single frame around code
+        backgroundcolor=\color{MyDarkGray}, % set backgroundcolor
+        xleftmargin=0.5cm, frame=tlbr, framesep=5pt, framerule=0pt,
+        basicstyle=\linespread{1.1}\small\ttfamily\color{MyGray}, % Use small true type font
+        keywordstyle=[1]\color{MyYellow}, % Perl functions bold and blue
+        keywordstyle=[2]\color{MyYellow}\bf, % 
+        keywordstyle=[3]\color{Red}\bf, % Custom functions underlined and blue
+        otherkeywords = {;,(,),\,,::, [, ]},
+    	morekeywords = [3]{;},
+    	morekeywords = [2]{::, (,),\,, [,]},
+        identifierstyle=, % Nothing special about identifiers                                         
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyGreen}\small, % Comments small dark green courier font
+        moredelim=**[is][\color{MyYellow}]{@}{@},% make color for text between @text@
+        stringstyle=\color{MyRed}, % Strings are purple
+        showstringspaces=false, % Don't put marks in string spaces
+        tabsize=4, % 5 spaces per tab
+        %
+        % Put standard Perl functions not included in the default language here
+        morekeywords={rand},
+        %
+        % Put Perl function parameters here
+        morekeywords=[2]{on, off, interp},
+        %
+        % Put user defined functions here
+        morekeywords=[3]{test},
+       	%
+        morecomment=[l][\color{Green}]{...}, % Line continuation (...) like blue comment
+        numbers=left, % Line numbers on left
+        firstnumber=1, % Line numbers start with line 1
+        numberstyle=\tiny\color{MyDarkGray}, % Line numbers are blue and small
+        stepnumber=1 % Line numbers go in steps of 5
+}
+
+% Creates a new command to include a perl script, the first parameter is the filename of the script (without .pl), the second parameter is the caption
+\newcommand{\perlscript}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.pl}
+\end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterSectionHeader}[1]{
+%\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitSectionHeader}[1]{
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1}{}\nobreak
+}
+
+%\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{sectionCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\mySectionName}{}
+\newenvironment{mySection}[1][Problem \arabic{sectionCounter}]{ % Makes a new environment called mySection which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{sectionCounter} % Increase counter for number of problems
+\renewcommand{\mySectionName}{#1} % Assign \mySectionName the name of the problem
+\section{\mySectionName} % Make a section in the document with the custom problem count
+\setlength\parindent{18pt}
+\enterSectionHeader{\mySectionName} % Header and footer within the environment
+}{
+%\exitSectionHeader{\mySectionName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+%\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\setlength\parindent{18pt}
+\enterSectionHeader{\mySectionName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterSectionHeader{\mySectionName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{What\ I\ can\ and\ what\ I\ cannot\ do\ with\ PCA} % Assignment title
+\newcommand{\hmwkDueDate}{Monday,\ January\ 1,\ 2012} % Due date
+\newcommand{\topCentralHead}{PCA\ Manual} % Course/class
+\newcommand{\topCentralHeadTime}{10:30am} % Class/lecture time
+\newcommand{\topCentralHeadInstructor}{Jones} % Teacher/lecturer
+\newcommand{\autorName}{Anna Sinelnikova} % Your name
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\newcommand*{\titleAT}{\begingroup % Create the command for including the title page in the document
+\newlength{\drop} % Command for generating a specific amount of whitespace
+\drop=0.1\textheight % Define the command as 10% of the total text height
+
+\rule{\textwidth}{1pt}\par % Thick horizontal line
+\vspace{2pt}\vspace{-\baselineskip} % Whitespace between lines
+\rule{\textwidth}{0.4pt}\par % Thin horizontal line
+
+\vspace{\drop} % Whitespace between the top lines and title
+\centering % Center all text
+\textcolor{MyBlue}{ % Red font color
+{{\fontsize{50}{70}\selectfont PCA Manual}}\\[0.5\baselineskip] % Title line 1
+{\Large OR}\\[0.75\baselineskip] % Title line 2
+{\Huge How to Succeed in Rescaling of Polymers}} % Title line 3
+
+\vspace{0.25\drop} % Whitespace between the title and short horizontal line
+\rule{0.3\textwidth}{0.4pt}\par % Short horizontal line under the title
+\vspace{\drop} % Whitespace between the thin horizontal line and the author name
+
+{\Large \textsc\autorName}\par % Author name
+
+%\vfill % Whitespace between the author name and publisher text
+%{\large \textcolor{Red}{\plogo}}\\[0.5\baselineskip] % Publisher logo
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\linewidth]{scaling2.eps}
+\end{figure}
+\vspace{-4cm}
+%{\large \textsc{Uppsala University, 2016}}\par % Publisher
+
+\vspace*{\drop} % Whitespace under the publisher text
+
+\rule{\textwidth}{0.4pt}\par % Thin horizontal line
+\vspace{2pt}\vspace{-\baselineskip} % Whitespace between lines
+\rule{\textwidth}{1pt}\par % Thick horizontal line
+
+\endgroup}
+
+%----------------------------------------------------------------------------------------

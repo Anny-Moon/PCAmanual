@@ -1,225 +1,6 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Programming/Coding Assignment
-% LaTeX Template
-%
-% This template has been downloaded from:
-% http://www.latextemplates.com
-%
-% Original author:
-% Ted Pavlic (http://www.tedpavlic.com)
-%
-% Note:
-% The \lipsum[#] commands throughout this template generate dummy text
-% to fill the template out. These commands should all be removed when 
-% writing assignment content.
-%
-% This template uses a Perl script as an example snippet of code, most other
-% languages are also usable. Configure them in the "CODE INCLUSION 
-% CONFIGURATION" section.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
-
 \documentclass[12pt]{article}
-\usepackage{fix-cm} %for huge text
+\usepackage{pcaSettings} % "pcaSettings.sty"
 
-\usepackage{fancyhdr} % Required for custom headers
-\usepackage{lastpage} % Required to determine the last page for the footer
-\usepackage{extramarks} % Required for headers and footers
-\usepackage[usenames,dvipsnames]{color} % Required for custom colors
-\usepackage{graphicx} % Required to insert images
-\usepackage{float}% For clipping images 
-\usepackage{listings} % Required for insertion of code
-\usepackage{courier} % Required for the courier font
-\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
-\usepackage{amsmath}% For nice mathematical formulas
-\usepackage{amssymb} %for N, Z, R ...
-\usepackage{subcaption}
-
-% Margins
-\topmargin=-0.45in
-\evensidemargin=0in
-\oddsidemargin=0in
-\textwidth=6.5in
-\textheight=9.0in
-\headsep=0.25in
-
-\linespread{1.1} % Line spacing
-
-% Set up the header and footer
-\pagestyle{fancy}
-\lhead{\hmwkAuthorName} % Top left header
-\chead{\hmwkClass} % Top center head
-\rhead{\firstxmark} % Top right header
-\lfoot{\lastxmark} % Bottom left footer
-\cfoot{} % Bottom center footer
-%\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
-\rfoot{\thepage} % Bottom right footer
-\renewcommand\headrulewidth{0.4pt} % Size of the header rule
-\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
-
-\setlength\parindent{0pt} % Removes all indentation from paragraphs
-\newcommand{\comp}[1]{\textbf{\texttt {#1}}}% For writing computer terms
-\newcommand{\important}{\textcolor{Red}{\textbf{Important: }}}
-\newcommand{\hint}{\textcolor{MyBlue}{\textbf{Tip: }}}
-%----------------------------------------------------------------------------------------
-%	CODE INCLUSION CONFIGURATION
-%----------------------------------------------------------------------------------------
-%\renewcommand{\ttdefault}{pcr}
-\definecolor{MyBlue}{rgb}{0.0,0.4,0.8} 
-\definecolor{MyRed}{rgb}{1.0,0.3,0.3} 
-\definecolor{MyYellow}{rgb}{1.0,0.7,0.07} % 
-\definecolor{MyGray}{rgb}{0.9,0.9,0.9} % 
-\definecolor{MyDarkGray}{rgb}{0.25,0.27, 0.32} % 
-\definecolor{MyGreen}{rgb}{0.5,0.92, 0.95} % 
-\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
-\lstloadlanguages{C++} % Load Perl syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
-
-\lstset{language=C++, % Use Perl in this example
-        frame=single, % Single frame around code
-        backgroundcolor=\color{MyDarkGray}, % set backgroundcolor
-        xleftmargin=0.5cm, frame=tlbr, framesep=5pt, framerule=0pt,
-        basicstyle=\linespread{1.1}\small\ttfamily\color{MyGray}, % Use small true type font
-        keywordstyle=[1]\color{MyYellow}, % Perl functions bold and blue
-        keywordstyle=[2]\color{MyYellow}\bf, % 
-        keywordstyle=[3]\color{Red}\bf, % Custom functions underlined and blue
-        otherkeywords = {;,(,),\,,::, [, ]},
-    	morekeywords = [3]{;},
-    	morekeywords = [2]{::, (,),\,, [,]},
-        identifierstyle=, % Nothing special about identifiers                                         
-        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyGreen}\small, % Comments small dark green courier font
-        moredelim=**[is][\color{MyYellow}]{@}{@},% make color for text between @text@
-        stringstyle=\color{MyRed}, % Strings are purple
-        showstringspaces=false, % Don't put marks in string spaces
-        tabsize=4, % 5 spaces per tab
-        %
-        % Put standard Perl functions not included in the default language here
-        morekeywords={rand},
-        %
-        % Put Perl function parameters here
-        morekeywords=[2]{on, off, interp},
-        %
-        % Put user defined functions here
-        morekeywords=[3]{test},
-       	%
-        morecomment=[l][\color{Green}]{...}, % Line continuation (...) like blue comment
-        numbers=left, % Line numbers on left
-        firstnumber=1, % Line numbers start with line 1
-        numberstyle=\tiny\color{MyDarkGray}, % Line numbers are blue and small
-        stepnumber=1 % Line numbers go in steps of 5
-}
-
-% Creates a new command to include a perl script, the first parameter is the filename of the script (without .pl), the second parameter is the caption
-\newcommand{\perlscript}[2]{
-\begin{itemize}
-\item[]\lstinputlisting[caption=#2,label=#1]{#1.pl}
-\end{itemize}
-}
-
-%----------------------------------------------------------------------------------------
-%	DOCUMENT STRUCTURE COMMANDS
-%	Skip this unless you know what you're doing
-%----------------------------------------------------------------------------------------
-
-% Header and footer for when a page split occurs within a problem environment
-\newcommand{\enterProblemHeader}[1]{
-%\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
-%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
-\nobreak\extramarks{#1}{}\nobreak
-}
-
-
-% Header and footer for when a page split occurs between problem environments
-\newcommand{\exitProblemHeader}[1]{
-%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
-%\nobreak\extramarks{#1}{}\nobreak
-}
-
-%\setcounter{secnumdepth}{0} % Removes default section numbers
-\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
-
-\newcommand{\homeworkProblemName}{}
-\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
-\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
-\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
-\section{\homeworkProblemName} % Make a section in the document with the custom problem count
-\setlength\parindent{18pt}
-\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
-}{
-%\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
-}
-
-\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
-\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
-}
-
-\newcommand{\homeworkSectionName}{}
-\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
-%\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
-\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
-\setlength\parindent{18pt}
-\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
-}{
-\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
-}
-
-%----------------------------------------------------------------------------------------
-%	NAME AND CLASS SECTION
-%----------------------------------------------------------------------------------------
-
-\newcommand{\hmwkTitle}{What\ I\ can\ and\ what\ I\ cannot\ do\ with\ PCA} % Assignment title
-\newcommand{\hmwkDueDate}{Monday,\ January\ 1,\ 2012} % Due date
-\newcommand{\hmwkClass}{PCA\ Manual} % Course/class
-\newcommand{\hmwkClassTime}{10:30am} % Class/lecture time
-\newcommand{\hmwkClassInstructor}{Jones} % Teacher/lecturer
-\newcommand{\hmwkAuthorName}{Anna Sinelnikova} % Your name
-
-%----------------------------------------------------------------------------------------
-%	TITLE PAGE
-%----------------------------------------------------------------------------------------
-
-\newcommand*{\titleAT}{\begingroup % Create the command for including the title page in the document
-\newlength{\drop} % Command for generating a specific amount of whitespace
-\drop=0.1\textheight % Define the command as 10% of the total text height
-
-\rule{\textwidth}{1pt}\par % Thick horizontal line
-\vspace{2pt}\vspace{-\baselineskip} % Whitespace between lines
-\rule{\textwidth}{0.4pt}\par % Thin horizontal line
-
-\vspace{\drop} % Whitespace between the top lines and title
-\centering % Center all text
-\textcolor{MyBlue}{ % Red font color
-{{\fontsize{50}{70}\selectfont PCA Manual}}\\[0.5\baselineskip] % Title line 1
-{\Large OR}\\[0.75\baselineskip] % Title line 2
-{\Huge How to Succeed in Rescaling of Polymers}} % Title line 3
-
-\vspace{0.25\drop} % Whitespace between the title and short horizontal line
-\rule{0.3\textwidth}{0.4pt}\par % Short horizontal line under the title
-\vspace{\drop} % Whitespace between the thin horizontal line and the author name
-
-{\Large \textsc\hmwkAuthorName}\par % Author name
-
-%\vfill % Whitespace between the author name and publisher text
-%{\large \textcolor{Red}{\plogo}}\\[0.5\baselineskip] % Publisher logo
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.82\linewidth]{scaling2.eps}
-\end{figure}
-\vspace{-4cm}
-%{\large \textsc{Uppsala University, 2016}}\par % Publisher
-
-\vspace*{\drop} % Whitespace under the publisher text
-
-\rule{\textwidth}{0.4pt}\par % Thin horizontal line
-\vspace{2pt}\vspace{-\baselineskip} % Whitespace between lines
-\rule{\textwidth}{1pt}\par % Thick horizontal line
-
-\endgroup}
-
-%----------------------------------------------------------------------------------------
 
 \begin{document}
 
@@ -250,7 +31,7 @@ The program unfortunately does not have any graphical user interface. So you can
 % ALGORITHM
 %----------------------------------------------------------------------------------------
 
-\begin{homeworkProblem}[Algorithm]\label{sec:theory}
+\begin{mySection}[Algorithm]\label{sec:theory}
 \subsection{Theory}
 Let us assume we have a chain of solid rigid segments. All we need to describe this kind of system is coordinates of all sites of the chain.
 \begin{figure}
@@ -330,12 +111,12 @@ There are three cases in the algorithm. They are schematicaly shown in Figure \r
 	\label{fig:flowchart_branch}
 \end{figure}
 
-\end{homeworkProblem}
+\end{mySection}
 %----------------------------------------------------------------------------------------
 % QUICK START
 %----------------------------------------------------------------------------------------
 
-\begin{homeworkProblem}[Quick Start]\label{sec:classPolymer}
+\begin{mySection}[Quick Start]\label{sec:classPolymer}
 Here is the instruction how one can quick run the program. The program does not have graphical interface, so all the work should be done from the terminal.
 \subsection{Compilation the library}
 First of all download PCA project to your computer from https://github.com/Anny-Moon/PCA. You can do it manually on the website or you can use \comp{git}:
@@ -400,11 +181,11 @@ If you have \comp{GNUplot} you can immediately plot dependency of total angle on
 @PCA$@ gnuplot -e "polymerName='5dn7'" plotTotalAngle.gnu 
 \end{lstlisting}
 
-\end{homeworkProblem}
+\end{mySection}
 %----------------------------------------------------------------------------------------
 % CLASS POLYMER
 %----------------------------------------------------------------------------------------
-\begin{homeworkProblem}[Class Polymer]\label{sec:classPolymer}
+\begin{mySection}[Class Polymer]\label{sec:classPolymer}
 This class is the main class of the program. It stores the information about the model.
 On of the possible way of calling the constructor is the following:
 \begin{lstlisting}
@@ -422,13 +203,13 @@ Polymer polymer(inputFileName, linesInBlock, blockNumber);
  \end{enumerate}
 \hint if you do not know how many blocks you have in the file, but want to know then you can call either function \comp{void showNumberOfLinesInBlocks(char* fileName)} or \comp{int countBlocks (char* fileName)} (see sec. \ref{sec:linesInBlocks}).
 
-\end{homeworkProblem}
+\end{mySection}
 
 %----------------------------------------------------------------------------------------
 %	SCALING PARAMETER
 %----------------------------------------------------------------------------------------
 
-\begin{homeworkProblem}[Scaling Parameter]
+\begin{mySection}[Scaling Parameter]
 Scaling parameter $s$ denotes how many old monomers will be in a new one (see sec. \ref{sec:theory}). It is a \comp{double} number which is \textbf{grater than 1}. It is stored like this:
 \begin{equation}
 s = I+\frac{n}{d}\,,\;\;\; n\in \mathbb{N};\;\;b\,,I\in \mathbb{N}\backslash 0
@@ -503,12 +284,12 @@ PolymerScaling::ScalingParam::setAccuracy(1e+07);
 currentAccuracy = PolymerScaling::ScalingParam::getAccuracy();
 \end{lstlisting}
 
-\end{homeworkProblem}
+\end{mySection}
 
 %----------------------------------------------------------------------------------------
 % OBSERVABLES
 %----------------------------------------------------------------------------------------
-\begin{homeworkProblem}[Observables for Scaling Functions]\label{sec:enumClassObservable}
+\begin{mySection}[Observables for Scaling Functions]\label{sec:enumClassObservable}
 
 When you perform scaling procedure you can choose one of four values to be calculated. All of them are members of enumeration class \comp{enum class Observable} which is a member of the class \comp{PolymerScaling}.
 So there are four members.
@@ -538,13 +319,13 @@ The conventional mean value of monomer length along the chain:
 \langle l\rangle = \frac{1}{N} \sum_{i=1}^N l_i
 \end{equation}
 where $N$ is number of backbones in the polymer.
-\end{homeworkProblem}
+\end{mySection}
 
 
 %----------------------------------------------------------------------------------------
 % SCALING FUNCTIONS
 %----------------------------------------------------------------------------------------
-\begin{homeworkProblem}[Scaling Functions]\label{sec:scalingFunctions}
+\begin{mySection}[Scaling Functions]\label{sec:scalingFunctions}
 In all scaling function we use ``floating" scaling parameter. It means that scaling parameter will be recalculated at each scaling step in order to fix the first and the last sites. 
 \subsection{observable VS scaling Steps}\label{sec:observableVSscalingStep}
 The function writes main file with dependency of some value on number of scaling step. It is also possible to write some side files. 
@@ -633,12 +414,12 @@ PolymerScaling::scalingLoop(
 \item ``sp" --- constant reference to etalon scaling parameter, as in previous functions (see sec. \ref{sec:classScalingParam}). 
 \end{enumerate}
 
-\end{homeworkProblem}
+\end{mySection}
 %----------------------------------------------------------------------------------------
 %	FILES FORMATS
 %----------------------------------------------------------------------------------------
 
-\begin{homeworkProblem}[Files Formats]
+\begin{mySection}[Files Formats]
 
 \subsection{Input file}\label{sec:inputFile}
 All input files should be placed in \comp{/data} in the root of the program. The extantion of the file is \comp{.dat}. Both these settings can be easily changed in \comp{main.cpp}.
@@ -690,14 +471,14 @@ In this file one can find the list of scaling parameters for each scaling step. 
 
 
 
-\end{homeworkProblem}
+\end{mySection}
 
 
 %----------------------------------------------------------------------------------------
 %	NICE FEATURES
 %----------------------------------------------------------------------------------------
 
-\begin{homeworkProblem}[Nice Features]
+\begin{mySection}[Nice Features]
 \subsection{Mute Regime}
 \subsection{File Checking}
 One can find 3 useful functions for checking input files in class \comp{File}.
@@ -718,13 +499,13 @@ It is supposed to print on screen list of blocks in the file and number of lines
 \important the function will print on screen even if all verbose are \comp{false}. Do not call this function if you do not want to listen to it.
 
 
-\end{homeworkProblem}
+\end{mySection}
 
 %----------------------------------------------------------------------------------------
 %	LIST OF ERRORS
 %----------------------------------------------------------------------------------------
 
-\begin{homeworkProblem}[List of Errors]\label{sec:listOfErrors}
+\begin{mySection}[List of Errors]\label{sec:listOfErrors}
 Any errors appears on screen and starts with information about its location. So developer can quickly fined it in the code. After printing the error massage on the screen the program stops with \comp{exit(1)}.
 
 Here is the list of all possible detectable errors:
@@ -742,13 +523,13 @@ Here is the list of all possible detectable errors:
 
 
 
-\end{homeworkProblem}
+\end{mySection}
 
 %----------------------------------------------------------------------------------------
 %	VISUALISATION IN MATLAB
 %----------------------------------------------------------------------------------------
 
-\begin{homeworkProblem}[Visualization in MATLAB]\label{sec:matlab}
+\begin{mySection}[Visualization in MATLAB]\label{sec:matlab}
 There are two MATLAB functions described in two \comp{.m}-files  with corresponding names located in directory  \comp{PCA/tools}.
 \subsection{Picture}
 You can draw on screen any configuration at any step of scaling procedure. For doing this call \comp{showConfiguration('<polymerName>', <number of step>)} 
@@ -782,13 +563,13 @@ If you skip the second argument, then Matlab will record the whole procedure fra
 
 The same as for the previous function, Matlab will try to open \\\comp{"results/<polymerName>\_configurations.dat"}, so be sure you have it.
 
-\end{homeworkProblem}
+\end{mySection}
 %----------------------------------------------------------------------------------------
 %	VISUALISATION IN PHYTHON
 %----------------------------------------------------------------------------------------
 
 \subsection{Show Configuration}
-\begin{homeworkProblem}[Visualization with Python]\label{sec:matlab}
+\begin{mySection}[Visualization with Python]\label{sec:matlab}
 In folder \comp{tools} you can find \comp{PlotterPy} - interactive 3D plotter for \comp{.pca} files.
 The plotter is written in \comp{Python 2.7} with using \comp{Matplotlib}.\footnote{If you use MacOS, then you do not need to install anything}. There are two ways how you can run the plotters: from command line or from Python shell.
 \subsubsection{From command line}
@@ -844,16 +625,16 @@ It is also very easy to open another file. To finish Python print exit().\\
 \hint You can copy-past all the commands from \comp{plt.py}, which you can open with any text editor.
 \subsection{Make Gif}
 
-\end{homeworkProblem}
+\end{mySection}
 %----------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------
 %	GNUplot
 %----------------------------------------------------------------------------------------
 
-\begin{homeworkProblem}[GNUplot]\label{sec:gnuplot}
+\begin{mySection}[GNUplot]\label{sec:gnuplot}
 
 
-\end{homeworkProblem}
+\end{mySection}
 %----------------------------------------------------------------------------------------
 
 \end{document}
