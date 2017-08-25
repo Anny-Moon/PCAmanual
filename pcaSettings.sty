@@ -62,9 +62,13 @@
 \renewcommand\footrulewidth{0.4pt} % Size of the footer rule
 
 \setlength\parindent{0pt} % Removes all indentation from paragraphs
+
 \newcommand{\comp}[1]{\textbf{\texttt {#1}}}% For writing computer terms
 \newcommand{\important}{\textcolor{Red}{\textbf{Important: }}}
 \newcommand{\hint}{\textcolor{MyBlue}{\textbf{Tip: }}}
+\newcommand{\PCA}{\textcolor{MyBlue}{PCA }}
+
+
 %----------------------------------------------------------------------------------------
 %	CODE INCLUSION CONFIGURATION
 %----------------------------------------------------------------------------------------
@@ -166,6 +170,23 @@
 \enterSectionHeader{\mySectionName} % Header and footer after the environment
 }
 
+\newcommand{\myPart}[1]{
+\newpage
+\vspace*{7cm}
+\rule{\textwidth}{0.4pt}\par % Thin horizontal line
+\vspace{2pt}\vspace{-\baselineskip}
+\rule{\textwidth}{2pt}\par % Thin horizontal line
+
+\vspace*{\drop} % Whitespace under the publisher text
+\part{ #1}
+\vspace*{\drop} % Whitespace under the publisher text
+
+\rule{\textwidth}{2pt}\par % Thin horizontal line
+\vspace{2pt}\vspace{-\baselineskip}
+\rule{\textwidth}{0.4pt}\par % Thin horizontal line
+\newpage
+}
+
 %----------------------------------------------------------------------------------------
 %	NAME AND CLASS SECTION
 %----------------------------------------------------------------------------------------
@@ -218,5 +239,6 @@
 \rule{\textwidth}{1pt}\par % Thick horizontal line
 
 \endgroup}
+
 
 %----------------------------------------------------------------------------------------

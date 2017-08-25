@@ -15,18 +15,93 @@
 \newpage
 \tableofcontents
 \newpage
+
 \section*{Introduction} 
 PCA project consists from:
 \begin{enumerate}
 \item Independent PCA library in \comp{C++11}.
 \item Three example applications in \comp{C++11}.
+\item Toolkit for visualization \comp{.pca} files, written in \comp{Python}.
 \item \comp{MATLAB} script for plotting one or several chains which are obteined during scaling procedure.
 \item Another \comp{MATLAB} script for making movies of scaling process, where one scaling step is one frame.
 \item Small script for \comp {GNUplot} for plotting the figure of dependency of total angle on scaling step.
 \item Some chains of proteins from Protein Data Bank (PDB) for quick start.
 \item Library documentation for developers, which was generated automatically in ``doxygen".
 \end{enumerate}
-The program unfortunately does not have any graphical user interface. So you can work with it only from the terminal. However the only thing you should know is how to change the directory there. All the rest you can do with your favourite file managers and text editor.
+The program unfortunately does not have any graphical user interface. So you can work with it only from the terminal. However the only thing you should know is how to change the directory there. All the rest you can do with your favourite file manager and text editor.
+%----------------------------------------------------------------------------------------
+% QUICK START
+%----------------------------------------------------------------------------------------
+
+\begin{mySection}[Quick Start]\label{sec:classPolymer}
+Here is the instruction how one can quick run the program. The program does not have graphical interface, so all the work should be done from the terminal.
+\subsection{Compilation the library}
+First of all download PCA project to your computer from https://github.com/Anny-Moon/PCA. You can do it manually on the website or you can use \comp{git}:
+\begin{lstlisting}
+@$@ git clone https://github.com/Anny-Moon/PCA
+\end{lstlisting}
+The next step is to compile the PCA library on your computer (you are required to have \comp{gcc} compiler). Go to folder \comp{/PCA\_lib} in the main folder with project and do \comp{make}:
+\begin{lstlisting}
+@$@ cd PCA/PCA_lib
+@PCA/PCA_lib$@ make
+\end{lstlisting}
+The compiler will show you which files it handled. And this line will show that library was successfully built:
+\begin{lstlisting}
+Generating static library... libpca.a
+\end{lstlisting}
+Now we want to make the library accessible from any folder on you computer. It will allow you to create applications and do not care about paths. Go back to root folder and start initialization session:
+\begin{lstlisting}
+@PCA/PCA_lib$@ cd ../
+@PCA$@ source init_session.sh
+\end{lstlisting}
+\important initialization session should be done every time you start new terminal.
+
+
+\subsection{Applications}
+There are three things you can do:
+\begin{enumerate}
+\item \comp{scaling}: Scaling procedure without calculating any observables.
+\item \comp{totalAngle}: Scaling procedure with calculating total angle for fixed parameter $k$ (see eq. \ref{eq:totalAngle}). If you have several chains in your file (see sec. \ref{sec:inputFile}) then it will calculate average total angle and error (see sec. \ref{sec:observableVSscalingStepWithStatistics}).
+\item \comp{various\_k}: Scaling procedure with calculating total angle for broad range of $k$. If you have several chains in your  then it will calculate average total angle and error.
+\end{enumerate}
+
+Copy application you want to use somewhere on your computer. Then go to this folder and run make:
+\begin{lstlisting}
+@myApplication$@ make
+\end{lstlisting}
+Since you see this:
+\begin{lstlisting}
+Generating executable file.. pca
+\end{lstlisting}
+you are ready to start calculations.
+
+Choose which polymer from folder \comp{data} in the project's root you want to analyze and pass the name as the first argument for the program like this:
+\begin{lstlisting}
+@PCA$@ ./pca 5dn7
+\end{lstlisting}
+It will run function \comp{observableVSscalingStep} for observable \comp{TotalAngle} for chain 5dn7 with writing all possible side files (see sec. \ref{sec:observableVSscalingStep}). All the files will be put in folder \comp{/results}.
+
+For the program number two you can also pass parameter $k$ as the second argument (by default $k=10$). For example:
+\begin{lstlisting}
+@PCA$@ ./pca 5dn7 50
+\end{lstlisting}
+for $k=50$.
+
+\hint run any program without arguments and it will tell you about itself and what it expects you to pass:
+\begin{lstlisting}
+@PCA$@ ./pca
+\end{lstlisting}
+
+\subsection{Handle the Results}
+If you have \comp{GNUplot} you can immediately plot dependency of total angle on scaling step.
+\begin{lstlisting}
+@PCA$@ gnuplot -e "polymerName='5dn7'" plotTotalAngle.gnu 
+\end{lstlisting}
+
+\end{mySection}
+
+\myPart{Calculation}
+
 %----------------------------------------------------------------------------------------
 % ALGORITHM
 %----------------------------------------------------------------------------------------
@@ -112,76 +187,7 @@ There are three cases in the algorithm. They are schematicaly shown in Figure \r
 \end{figure}
 
 \end{mySection}
-%----------------------------------------------------------------------------------------
-% QUICK START
-%----------------------------------------------------------------------------------------
 
-\begin{mySection}[Quick Start]\label{sec:classPolymer}
-Here is the instruction how one can quick run the program. The program does not have graphical interface, so all the work should be done from the terminal.
-\subsection{Compilation the library}
-First of all download PCA project to your computer from https://github.com/Anny-Moon/PCA. You can do it manually on the website or you can use \comp{git}:
-\begin{lstlisting}
-@$@ git clone https://github.com/Anny-Moon/PCA
-\end{lstlisting}
-The next step is to compile the PCA library on your computer (you are required to have \comp{gcc} compiler). Go to folder \comp{/PCA\_lib} in the main folder with project and do \comp{make}:
-\begin{lstlisting}
-@$@ cd PCA/PCA_lib
-@PCA/PCA_lib$@ make
-\end{lstlisting}
-The compiler will show you which files it handled. And this line will show that library was successfully built:
-\begin{lstlisting}
-Generating static library... libpca.a
-\end{lstlisting}
-Now we want to make the library accessible from any folder on you computer. It will allow you to create applications and do not care about paths. Go back to root folder and start initialization session:
-\begin{lstlisting}
-@PCA/PCA_lib$@ cd ../
-@PCA$@ source init_session.sh
-\end{lstlisting}
-\important initialization session should be done every time you start new terminal.
-
-
-\subsection{Applications}
-There are three things you can do:
-\begin{enumerate}
-\item \comp{scaling}: Scaling procedure without calculating any observables.
-\item \comp{totalAngle}: Scaling procedure with calculating total angle for fixed parameter $k$ (see eq. \ref{eq:totalAngle}). If you have several chains in your file (see sec. \ref{sec:inputFile}) then it will calculate average total angle and error (see sec. \ref{sec:observableVSscalingStepWithStatistics}).
-\item \comp{various\_k}: Scaling procedure with calculating total angle for broad range of $k$. If you have several chains in your  then it will calculate average total angle and error.
-\end{enumerate}
-
-Copy application you want to use somewhere on your computer. Then go to this folder and run make:
-\begin{lstlisting}
-@myApplication$@ make
-\end{lstlisting}
-Since you see this:
-\begin{lstlisting}
-Generating executable file.. pca
-\end{lstlisting}
-you are ready to start calculations.
-
-Choose which polymer from folder \comp{data} in the project's root you want to analyze and pass the name as the first argument for the program like this:
-\begin{lstlisting}
-@PCA$@ ./pca 5dn7
-\end{lstlisting}
-It will run function \comp{observableVSscalingStep} for observable \comp{TotalAngle} for chain 5dn7 with writing all possible side files (see sec. \ref{sec:observableVSscalingStep}). All the files will be put in folder \comp{/results}.
-
-For the program number two you can also pass parameter $k$ as the second argument (by default $k=10$). For example:
-\begin{lstlisting}
-@PCA$@ ./pca 5dn7 50
-\end{lstlisting}
-for $k=50$.
-
-\hint run any program without arguments and it will tell you about itself and what it expects you to pass:
-\begin{lstlisting}
-@PCA$@ ./pca
-\end{lstlisting}
-
-\subsection{Handle the Results}
-If you have \comp{GNUplot} you can immediately plot dependency of total angle on scaling step.
-\begin{lstlisting}
-@PCA$@ gnuplot -e "polymerName='5dn7'" plotTotalAngle.gnu 
-\end{lstlisting}
-
-\end{mySection}
 %----------------------------------------------------------------------------------------
 % CLASS POLYMER
 %----------------------------------------------------------------------------------------
@@ -420,18 +426,10 @@ PolymerScaling::scalingLoop(
 %----------------------------------------------------------------------------------------
 
 \begin{mySection}[Files Formats]
+\subsection{PCA format \comp{.pca}}\label{sec:.pca}
+We present special format for all files with 3-dimensional chains configurations. It is plane text file with extension \comp{.pca}. One can open it with any text editor.
 
-\subsection{Input file}\label{sec:inputFile}
-All input files should be placed in \comp{/data} in the root of the program. The extantion of the file is \comp{.dat}. Both these settings can be easily changed in \comp{main.cpp}.
-
-Give the name of your file without extantion as an argument when you running the program. Then the program will add folder name and extantion and pass this string to \comp{Polymer} constructor:
-
-\begin{lstlisting}
-sprintf(str,"data/xyz_%s.dat",p[1]);
-Polymer polymer(str);
-\end{lstlisting}
-
-The format of  \comp{.dat} file should be the following:
+The format of  \comp{.pca} file is the following:
 
 \begin{lstlisting}
 <polymer1_atom1_x>	<polymer1_atom1_y>	<polymer1_atom1_y>
@@ -446,12 +444,28 @@ The format of  \comp{.dat} file should be the following:
 
 //other blocks
 \end{lstlisting}
+File stores coordinates of atoms of any number of chains. The data in file splits into blocks, while blocks split into lines. Each line is x, y, z coordinates of one atom. New atom starts with new line.
+Blocks are separated one from another with one or more empty lines. Line is empty if it contains only unprintable characters.
 
-File stores coordinates of atoms. Each line is x, y, z coordinates of one atom which can be separated with \comp{space(s)} or \comp{tab(s)}. New line is the coordinates of the next atom. Empty line separate one polymer chain from another one.
+There could be any number (including null) of empty lines at the beginning and at the end of the file.
 
-\important line which starts with unprintable character (\comp{space} or \comp{tab}) counts like empty! That is why data lines cannot start with unprintable character.
+\subsection{FilesHandler}\label{sec:inputFilesHandler}
+FileHandler is an independent module (stored in folder \comp{FileHandler}) which allows to write other input formats for \PCA code completely independent from the rest of the code. The new class should inherit from abstract class \comp{FileCoordinates}. Files classes connect with class \comp{Polymer} only through arrays of double numbers with coordinates \comp{(double*  x, double* y, double* z)}.
 
-And the end of the file you might or might not have a new line, it does not matter.
+\subsection{DataHandler}\label{sec:dataHandler}
+DataHandler is a small class with only static functions designed to store the path to files with respect to the \PCA library.
+\subsection{Input file}\label{sec:inputFile}
+
+All input files should have \comp{.pca} format and be placed in \comp{/data} in the root of the program.  Both these settngs can be easily changed in application's \comp{main.cpp}.
+
+Give the name of your file without extension as an argument when you run the program. Then the program will add folder name and extension and create reader — the object of type from the previous section.
+\begin{lstlisting}
+sprintf(str,"data/xyz_%s.dat",p[1]);
+Polymer polymer(str);
+\end{lstlisting}
+
+That reader will go to \comp{Polymer} constructor as only one argument.
+
 
 \subsection{Output files}\label{ssec:outputFiles}
 There are several different output files for \comp{Scaling} functions. The first line (or data block) in all files corresponds to the original chain i. e. 0-step of iteration process.
@@ -520,10 +534,10 @@ Here is the list of all possible detectable errors:
 
 \item \comp{Error: void pointer in <functionName>.} This error can happen only if you developing. There is more information can appear in error message.
 \end{itemize}
-
-
-
 \end{mySection}
+
+
+\myPart{Visualization}
 
 %----------------------------------------------------------------------------------------
 %	VISUALISATION IN MATLAB
