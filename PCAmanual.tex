@@ -24,8 +24,7 @@ PCA project consists from:
 \item Toolkit for visualization \comp{.pca} files, written in \comp{Python}.
 \item \comp{MATLAB} script for plotting one or several chains which are obteined during scaling procedure.
 \item Another \comp{MATLAB} script for making movies of scaling process, where one scaling step is one frame.
-\item Small script for \comp {GNUplot} for plotting the figure of dependency of total angle on scaling step.
-\item Some chains of proteins from Protein Data Bank (PDB) for quick start.
+\item Some chains of proteins from Protein Data Bank and some files with already rescaled chains for quick start.
 \item Library documentation for developers, which was generated automatically in ``doxygen".
 \end{enumerate}
 The program unfortunately does not have any graphical user interface. So you can work with it only from the terminal. However the only thing you should know is how to change the directory there. All the rest you can do with your favourite file manager and text editor.
@@ -449,6 +448,8 @@ Blocks are separated one from another with one or more empty lines. Line is empt
 
 There could be any number (including null) of empty lines at the beginning and at the end of the file.
 
+We have an additional software (command-line program) which allows to download \footnote{from rcsb.org.} and convert files of \comp{.pdb} format to our \comp{.pca} format. The software and detailed instructions how to use it can be found here: \textbf{https://github.com/Anny-Moon/pdb2xyz}.
+
 \subsection{FilesHandler}\label{sec:inputFilesHandler}
 FileHandler is an independent module (stored in folder \comp{FileHandler}) which allows to write other input formats for \PCA code completely independent from the rest of the code. The new class should inherit from abstract class \comp{FileCoordinates}. Files classes connect with class \comp{Polymer} only through arrays of double numbers with coordinates \comp{(double*  x, double* y, double* z)}.
 
@@ -557,7 +558,7 @@ If you call this function again without closing the figure window, MATLAB will d
 	\centering
 	\vskip -0cm 
   	\includegraphics[width=0.7\linewidth]{scaling.pdf}
-  	\caption{A subfigure}
+  	\caption{Example of visualization in MATLAB.}
 	\label{fig:scaling}
 \end{figure}
 For example, for getting the left figure of Figure \ref{fig:scaling} one should call:\\
@@ -582,15 +583,26 @@ The same as for the previous function, Matlab will try to open \\\comp{"results/
 %	VISUALISATION IN PHYTHON
 %----------------------------------------------------------------------------------------
 
-\subsection{Show Configuration}
-\begin{mySection}[Visualization with Python]\label{sec:matlab}
-In folder \comp{tools} you can find \comp{PlotterPy} - interactive 3D plotter for \comp{.pca} files.
-The plotter is written in \comp{Python 2.7} with using \comp{Matplotlib}.\footnote{If you use MacOS, then you do not need to install anything}. There are two ways how you can run the plotters: from command line or from Python shell.
+\begin{mySection}[Visualization with Python]\label{sec:python}
+In the folder \comp{tools} you can find \comp{PlotterPy} - interactive 3D plotter for \comp{.pca} files.
+The plotter is written in \comp{Python 2.7} with using \comp{Matplotlib}.\footnote{If you use MacOS, then you do not need to install anything}. 
+
+\begin{figure}[H]
+	\centering
+	\vskip -0cm 
+  	\includegraphics[width=0.7\linewidth]{python.pdf}
+  	\caption{Example of visualization with Python.}
+	\label{fig:scaling}
+\end{figure}
+\subsection{Picture}
+You can plot or save pdf-files with one ore several configurations. 
+There are two ways how you can run the plotters: from command line or from Python shell.
 \subsubsection{From command line}
 The program should be run like this:
 \begin{lstlisting}
-@PlotterPy$@ python <path/to/>plotter.py <path/to/fileName>
- <configuration1> <configuration2> <...>
+@PlotterPy$@ python ./plotter.py <path/pcaFile> 
+<"show" or the name of the file to save> <configurations>
+<configuration1> <configuration2> <...>
 \end{lstlisting}
 
 For example, if you want to open 5dn7.pca which is stored in folder \comp{results}. And this folder \comp{results} is at the same level as folder \comp{PlotterPy}, then you can run from \comp{PlotterPy} folder:
@@ -601,14 +613,17 @@ and see the original configuration, i.e. configuration number 0.
 
 Try:
 \begin{lstlisting}
-@PlotterPy$@ python ./plotter.py ../results/1abs.pca 50 80 100 110
+@PlotterPy$@ python ./plotter.py ../results/1abs.pca show 50 80 100
 \end{lstlisting}
 to see the corresponding step of rescaling procedure together and get picture similar to \ref{fig:scaling} at the right.
-
-This method is convenient when you want quickly plot configurations. However, if you want to run this program a lot of times, especially if your files are big, we recommend you to go for option two.
+To save this result in \comp{1abs.pdf} you can run this instead:
+\begin{lstlisting}
+@PlotterPy$@ python ./plotter.py ../results/1abs.pca 1abs.pdf 50 80 100
+\end{lstlisting}
+This method is convenient when you want quickly plot configurations. However, if you want to run this program a lot of times, especially if your files are big, we recommend you to go for the next option.
 
 \subsubsection{From Python shell}
-Running from Python shell will require a bit of work from you, but will same your time in a long run.
+Running from Python shell will require a bit of work from you, but will save your time in a long run.
 First of all we should launch Python:
 \begin{lstlisting}
 @PlotterPy$@ python
@@ -637,18 +652,30 @@ If you want to plot some other figure, just repeat two last steps with new value
 \end{lstlisting}
 It is also very easy to open another file. To finish Python print exit().\\
 \hint You can copy-past all the commands from \comp{plt.py}, which you can open with any text editor.
-\subsection{Make Gif}
 
+\subsection{Movie}
+To get a full picture of rescaling procedure it is better to create a movie, where each frame is a next step in the procedure. For this purpose we made \comp{MovieMaker.py} for you. As in previous plotter one can save the video or get it on the screen without saving. The program can save in GIF format (using \textit{imagemagick} library) or in MPEG4 format (using \textit{ffmpeg} library). You need to install the corresponding libary before you can save files.
+
+The program should be run like this:
+\begin{lstlisting}
+@PlotterPy$@ ./movieMaker.py <path/pcaFileIn> <increment>
+<gif/mp4> <path/fileOut>
+\end{lstlisting}
+If you want to direct the output to the screen, then simply skip the last two argument.
+The \comp{<increment>} allows you to skip frames, what can be useful if if there the original chain was very long and there are too many scaling steps. The default value is 1.
+
+Try 
+\begin{lstlisting}
+@PlotterPy$@ python ./movieMaker.py 5dn7 3 gif movie
+\end{lstlisting}
+to record every third frame into a file \comp{movie.gif} or
+\begin{lstlisting}
+@PlotterPy$@ python ./movieMaker.py 5dn7
+\end{lstlisting}
+to see the whole rescaling procedure for 5dn7 chain.
 \end{mySection}
 %----------------------------------------------------------------------------------------
-%----------------------------------------------------------------------------------------
-%	GNUplot
-%----------------------------------------------------------------------------------------
 
-\begin{mySection}[GNUplot]\label{sec:gnuplot}
-
-
-\end{mySection}
 %----------------------------------------------------------------------------------------
 
 \end{document}
